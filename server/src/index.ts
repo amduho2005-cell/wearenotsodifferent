@@ -8,6 +8,7 @@ import { validateEntryInput } from './validation.js';
 import { deleteUploadedPhoto, finalizeUpload, MAX_PHOTO_BYTES, photoUpload, usesBlobStorage } from './uploads.js';
 import { editKeyMatches, generateEditKey, hashEditKey } from './editKey.js';
 import { HttpError } from './types.js';
+import { rateLimit, RULES } from './rateLimit.js';
 
 // API_PORT (y no PORT) para no chocar con herramientas que definen PORT para el cliente.
 const PORT = Number(process.env.API_PORT) || 4000;
@@ -67,7 +68,8 @@ async function requireEditKey(req: Request, _res: Response, next: NextFunction) 
   next();
 }
 
-app.post('/api/entries', receivePhoto, async (req, res, next) => {
+// El límite va antes de recibir la foto, para no subir nada a Blob si se rechaza.
+app.post('/api/entries', rateLimit(RULES.create), receivePhoto, async (req, res, next) => {
   try {
     const { data, errors } = validateEntryInput(req.body ?? {});
     if (errors) throw new HttpError(400, 'Revisa los campos marcados antes de guardar.', errors);
@@ -81,7 +83,7 @@ app.post('/api/entries', receivePhoto, async (req, res, next) => {
   }
 });
 
-app.put('/api/entries/:id', requireEditKey, receivePhoto, async (req, res, next) => {
+app.put('/api/entries/:id', rateLimit(RULES.edit), requireEditKey, receivePhoto, async (req, res, next) => {
   let newPhoto: string | null = null;
   try {
     const { data, errors } = validateEntryInput(req.body ?? {});
@@ -111,8 +113,8 @@ app.put('/api/entries/:id', requireEditKey, receivePhoto, async (req, res, next)
 });
 
 /** Permite recuperar la entrada propia en otro navegador con su id y su código. */
-app.post('/api/entries/:id/verify', async (req, res) => {
-  const entry = await getEntry(req.params.id);
+app.post('/api/entries/:id/verify', rateLimit(RULES.verify), async (req, res) => {
+  const entry = await getEntry(String(req.params.id));
   if (!entry || !editKeyMatches(req.body?.editKey, entry.editKeyHash)) {
     throw new HttpError(403, 'No encontramos ninguna entrada con ese identificador y código de edición.');
   }

@@ -11,10 +11,13 @@ import type { PublicEntry, StoredEntry } from './types.js';
  */
 
 /** Campos que nunca salen de la base de datos hacia el público. */
-const HIDDEN = { _id: 0, editKeyHash: 0, searchText: 0 } as const;
+const PRIVATE_FIELDS = { _id: 0, editKeyHash: 0, searchText: 0, hidden: 0 } as const;
+
+/** Las entradas ocultas por moderación no se listan, no se buscan y no se pueden abrir. */
+const VISIBLE = { hidden: { $ne: true } } as const;
 
 export function toPublic(entry: StoredEntry): PublicEntry {
-  const { editKeyHash: _key, searchText: _search, ...rest } = entry;
+  const { editKeyHash: _key, searchText: _search, hidden: _hidden, ...rest } = entry;
   return rest;
 }
 
@@ -43,17 +46,36 @@ export async function listEntries({ q = '', sort = 'desc', limit }: ListOptions)
   const col = await entriesCollection();
   const terms = fold(q).split(/\s+/).filter(Boolean);
   // Todas las palabras deben aparecer, en cualquier campo público.
-  const filter = terms.length ? { $and: terms.map((t) => ({ searchText: { $regex: escapeRegex(t) } })) } : {};
+  const filter = terms.length
+    ? { ...VISIBLE, $and: terms.map((t) => ({ searchText: { $regex: escapeRegex(t) } })) }
+    : VISIBLE;
 
   const total = await col.countDocuments(filter);
-  let cursor = col.find(filter, { projection: HIDDEN }).sort({ createdAt: sort === 'asc' ? 1 : -1 });
+  let cursor = col.find(filter, { projection: PRIVATE_FIELDS }).sort({ createdAt: sort === 'asc' ? 1 : -1 });
   if (limit && limit > 0) cursor = cursor.limit(limit);
   return { total, entries: (await cursor.toArray()) as PublicEntry[] };
 }
 
+/** Devuelve la entrada solo si es visible: una entrada oculta tampoco se puede editar ni recuperar. */
 export async function getEntry(id: string): Promise<StoredEntry | undefined> {
   const col = await entriesCollection();
-  return (await col.findOne({ id }, { projection: { _id: 0, searchText: 0 } })) ?? undefined;
+  return (await col.findOne({ id, ...VISIBLE }, { projection: { _id: 0, searchText: 0 } })) ?? undefined;
+}
+
+/** Oculta o vuelve a mostrar una entrada (moderación). Devuelve undefined si el id no existe. */
+export async function setHidden(id: string, hidden: boolean): Promise<StoredEntry | undefined> {
+  const col = await entriesCollection();
+  const entry = await col.findOneAndUpdate(
+    { id },
+    hidden ? { $set: { hidden: true } } : { $unset: { hidden: '' } },
+    { projection: { _id: 0, searchText: 0, editKeyHash: 0 }, returnDocument: 'after' },
+  );
+  return entry ?? undefined;
+}
+
+export async function listHidden(): Promise<StoredEntry[]> {
+  const col = await entriesCollection();
+  return col.find({ hidden: true }, { projection: { _id: 0, id: 1, name: 1, interest: 1, updatedAt: 1 } }).toArray();
 }
 
 export async function createEntry(data: Omit<StoredEntry, 'id' | 'createdAt' | 'updatedAt'>): Promise<StoredEntry> {

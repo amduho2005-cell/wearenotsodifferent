@@ -117,9 +117,13 @@ we-are-not-so-different/
     │   ├── db.ts           conexión a MongoDB e índices
     │   ├── store.ts        consultas y escrituras de entradas
     │   ├── seed.ts         carga de datos de ejemplo
+    │   ├── moderate.ts     ocultar o mostrar entradas (npm run moderate)
+    │   ├── rateLimit.ts    límite de peticiones por IP
     │   ├── validation.ts   validación de los datos
     │   ├── uploads.ts      subida y comprobación de fotografías
     │   └── editKey.ts      códigos de edición
+    ├── scripts/
+    │   └── test-protections.ts   pruebas del límite y la moderación
     ├── .env.example        plantilla de variables de entorno
     ├── data/
     │   └── entries.seed.json   datos de ejemplo ficticios
@@ -138,6 +142,23 @@ client/public/ejemplos/     ilustraciones de las entradas de ejemplo
 | `POST` | `/api/entries/:id/verify` | Comprueba un código de edición (`{ "editKey": "…" }`) para recuperar la entrada en otro navegador. |
 
 Los errores se devuelven como `{ "error": "mensaje", "fields": { "campo": "mensaje" } }` con mensajes en español.
+
+Las entradas **ocultas por moderación** no aparecen en el listado ni en la búsqueda, y `GET /api/entries/:id` responde `404` como si no existieran. Tampoco se pueden editar ni recuperar con su código (ver [Moderación](#moderación)).
+
+### Límite de peticiones
+
+Las rutas que escriben tienen un límite por IP. Al superarlo, la API responde **`429`** con un mensaje en español y la cabecera `Retry-After` (segundos hasta que se puede volver a intentar):
+
+| Ruta | Límite por defecto | Variable para cambiarlo |
+| --- | --- | --- |
+| `POST /api/entries` | 10 entradas por hora | `RATE_LIMIT_CREATE` |
+| `PUT /api/entries/:id` | 30 ediciones por hora | `RATE_LIMIT_EDIT` |
+| `POST /api/entries/:id/verify` | 10 intentos cada 15 minutos | `RATE_LIMIT_VERIFY` |
+
+- Cuentan todas las peticiones, también las que fallan (así se frenan los intentos de adivinar códigos de edición).
+- La IP se lee de `X-Forwarded-For` (la primera) o, si no está, de `X-Real-IP`. En Vercel estas cabeceras las pone la propia plataforma.
+- Como Vercel puede ejecutar cada petición en una instancia distinta, los contadores no se guardan en memoria sino en la colección **`rateLimits`** de MongoDB: un documento por ruta, IP y ventana de tiempo, con un índice **TTL** sobre `expiresAt` que los borra solos al caducar. De la IP solo se guarda un hash, nunca la dirección.
+- Varias personas pueden compartir IP (un instituto, una biblioteca, los datos móviles). Si el diario se usa en un taller con un grupo, sube `RATE_LIMIT_CREATE` en las variables de entorno del proyecto de la API en Vercel y vuelve a desplegar.
 
 ### Campos y validación
 
@@ -189,6 +210,8 @@ anime y manga
 ```
 
 - `editKeyHash` y `searchText` nunca se devuelven en la API.
+- `hidden: true` solo existe en las entradas ocultas por moderación; tampoco sale nunca en la API.
+- Los contadores del límite de peticiones van aparte, en la colección `rateLimits` (se borran solos).
 - `searchText` reúne los campos públicos en minúsculas y sin tildes; la búsqueda exige que aparezcan todas las palabras.
 - MongoDB escribe cada documento de forma atómica y `id` tiene un índice único.
 - Si la base de datos no responde, la API devuelve un error 503 con un mensaje claro.
@@ -202,13 +225,33 @@ Las fotos nunca se guardan en Base64 dentro de la base de datos:
 
 Las seis entradas iniciales (`ejemplo-001` … `ejemplo-006`) son **personas ficticias**. Están marcadas con `"isSample": true`, se muestran con la etiqueta «ejemplo ficticio», usan ilustraciones en lugar de fotos reales y no se pueden editar.
 
+## Moderación
+
+No hay panel de administración: las entradas se ocultan o se vuelven a mostrar desde la terminal, con la base de datos configurada en `server/.env` (para la web publicada, la de producción):
+
+```bash
+npm run moderate --prefix server -- entrada-1a2b3c4d hide
+```
+
+```bash
+npm run moderate --prefix server -- entrada-1a2b3c4d show
+```
+
+```bash
+npm run moderate --prefix server -- list
+```
+
+- El id es la última parte del enlace de la entrada (`/entradas/entrada-1a2b3c4d`); también se puede pegar el enlace entero.
+- **Ocultar no borra nada**: la entrada y su foto se conservan por si hay que revisarla o restaurarla con `show`. El cambio es inmediato en la web.
+- El script indica en qué base de datos ha hecho el cambio. Para probarlo sin tocar la de producción, define antes `MONGODB_DB` (en PowerShell: `$env:MONGODB_DB = "wansd_test"`); la variable de entorno tiene prioridad sobre `server/.env`.
+
 ## Despliegue en Vercel
 
 El repositorio se despliega como **dos proyectos de Vercel** conectados al mismo repositorio de GitHub:
 
 | Proyecto | Root Directory | Framework | Variables de entorno |
 | --- | --- | --- | --- |
-| `wansd-api` | `server` | Express | `MONGODB_URI`, `MONGODB_DB` y el almacén de Blob conectado (`BLOB_READ_WRITE_TOKEN`) |
+| `wansd-api` | `server` | Express | `MONGODB_URI`, `MONGODB_DB` y el almacén de Blob conectado (`BLOB_READ_WRITE_TOKEN`); opcionales: `RATE_LIMIT_CREATE`, `RATE_LIMIT_EDIT`, `RATE_LIMIT_VERIFY` |
 | web (p. ej. `we-are-not-so-different`) | `client` | Vite | ninguna |
 
 - La API se detecta por el `export default app` de `server/src/index.ts`; en Vercel no se llama a `app.listen`.
@@ -219,7 +262,11 @@ El repositorio se despliega como **dos proyectos de Vercel** conectados al mismo
 
 ## ⚠️ Antes de publicarlo
 
-- Los códigos de edición no sustituyen a un sistema de cuentas, y no hay moderación de contenidos ni límite de peticiones.
+- Hay un **límite de peticiones por IP** en las rutas que escriben (ver [Límite de peticiones](#límite-de-peticiones)). Frena el envío masivo y los intentos de adivinar códigos, pero no a alguien que cambie de IP; no es una protección completa contra abusos.
+- La **moderación es posterior**: las entradas se publican al momento y nadie las revisa antes. Revisa el diario con frecuencia, sobre todo los primeros días después de compartir el enlace, y oculta lo inapropiado con `npm run moderate` (ver [Moderación](#moderación)). Ten a mano `server/.env` con acceso a la base de datos de producción para poder hacerlo rápido.
+- Como escriben personas desde 13 años sobre experiencias de bullying, decide antes qué ocultarás (datos que identifiquen a alguien, ataques a otras personas, contenido sexual o violento) y explícalo en «Sobre el proyecto», junto con una forma de pedir que se oculte una entrada.
+- Tras desplegar, comprueba que el límite cuenta IPs distintas a través de la reescritura de `client/vercel.json` (la web reenvía `/api` al proyecto de la API): si todas las peticiones llegaran con la misma IP, el límite sería común para todo el mundo.
+- Los códigos de edición no sustituyen a un sistema de cuentas.
 - Usa para la app un usuario de base de datos con permiso solo de lectura y escritura sobre `wansd`, no uno administrador.
 
 ## Comprobaciones realizadas
@@ -228,3 +275,10 @@ El repositorio se despliega como **dos proyectos de Vercel** conectados al mismo
 - Crear, editar (incluida la foto), ver y buscar entradas a través de la API y de la interfaz.
 - Las entradas y fotos persisten después de reiniciar el servidor (con MongoDB).
 - Validaciones: campos obligatorios, longitudes, edad, datos de contacto, formato y tamaño de la foto, código de edición incorrecto y entradas de ejemplo no editables.
+- Límite de peticiones y moderación, con el script de pruebas:
+
+```bash
+npm run test:protections --prefix server
+```
+
+Arranca la API en un puerto libre contra la base de datos **`wansd_test`** (nunca la de `server/.env`), con un límite de 3 peticiones para ir rápido, y comprueba que la cuarta creación, edición o recuperación desde la misma IP recibe `429` (y otra IP no), que los contadores tienen índice TTL y no guardan la IP, y que una entrada ocultada con `npm run moderate` desaparece del listado, de la búsqueda y de su página (`404`), no se puede editar ni recuperar y vuelve con `show`. Al terminar **borra la base `wansd_test`** (`KEEP_TEST_DB=1` para conservarla; `TEST_DB` para usar otro nombre, que debe terminar en `_test`).

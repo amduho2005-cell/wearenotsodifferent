@@ -32,6 +32,8 @@ export interface StoredEntry extends PublicEntry {
   editKeyHash?: string;
   /** Todos los campos públicos en minúsculas y sin tildes, para la búsqueda. */
   searchText?: string;
+  /** true si se ha ocultado por moderación (npm run moderate): no aparece en ningún sitio. */
+  hidden?: boolean;
 }
 
 export type FieldName = keyof Omit<EntryInput, 'photoFraming'> | 'photo';
