@@ -289,7 +289,6 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
-  grid-auto-flow: dense;
   gap: 1.6rem 1.3rem;
   align-items: start;
   padding: clamp(1.25rem, 3vw, 2.25rem);

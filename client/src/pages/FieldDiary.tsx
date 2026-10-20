@@ -89,6 +89,15 @@ function Seccion({ id, numero, titulo, peso, children, className = '' }: {
   );
 }
 
+/**
+ * Posición en el collage: cada persona ocupa un bloque, en el orden en que llegó su
+ * entrada; primero su foto y justo después sus frases, para que vayan juntas.
+ */
+function ordenDe(nombre: string, desplazamiento = 0): number {
+  const i = LLEGADAS.findIndex((l) => l.nombre === nombre);
+  return (i === -1 ? LLEGADAS.length : i) * 10 + desplazamiento;
+}
+
 /** Fotos de las entradas analizadas, tal y como están publicadas ahora. */
 function useFotosAnalizadas() {
   const [fotos, setFotos] = useState<Entry[] | null>(null);
@@ -244,8 +253,10 @@ export function FieldDiary() {
               <blockquote
                 key={c.texto}
                 className={`note note--${c.color} fd-quote`}
-                // Notas en posiciones impares y fotos en pares: el collage las intercala.
-                style={{ ['--tilt' as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg`, order: i * 2 + 1 }}
+                style={{
+                  ['--tilt' as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg`,
+                  order: ordenDe(c.autor, 1 + CITAS.filter((o) => o.autor === c.autor).indexOf(c)),
+                }}
               >
                 <p>«{c.texto}»</p>
                 <cite className="hand">{c.autor}</cite>
@@ -256,7 +267,7 @@ export function FieldDiary() {
               <figure
                 key={e.id}
                 className="polaroid fd-photo"
-                style={{ ['--tilt' as string]: `${tiltFor(e.id, 4)}deg`, order: i * 2 }}
+                style={{ ['--tilt' as string]: `${tiltFor(e.id, 4)}deg`, order: ordenDe(e.name) }}
               >
                 <span className={`tape tape--${tapes[i % tapes.length]} tape--top`} aria-hidden="true" />
                 <FramedPhoto src={e.photo} framing={e.photoFraming} alt={`Fotografía elegida por ${e.name}`} name={e.name} />
@@ -276,7 +287,7 @@ export function FieldDiary() {
               </p>
             )}
 
-            <div className="fd-stickers" style={{ order: 7 }} aria-label="Intereses que aparecen en las entradas">
+            <div className="fd-stickers" style={{ order: ordenDe('Christian', 5) }} aria-label="Intereses que aparecen en las entradas">
               <p className="hand fd-stickers__title">lo que nos gusta</p>
               <ul>
                 {INTERESES.map((t, i) => (
