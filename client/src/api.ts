@@ -24,7 +24,9 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
   let body: unknown = null;
   try {
     body = await res.json();
-  } catch {
+  } catch (err) {
+    // Cancelada mientras se leía la respuesta: se propaga como cancelación, no como respuesta vacía.
+    if ((err as Error).name === 'AbortError' || init?.signal?.aborted) throw err;
     /* respuesta sin JSON */
   }
   if (!res.ok) {

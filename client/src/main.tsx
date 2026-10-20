@@ -13,6 +13,7 @@ import { Diary } from './pages/Diary';
 import { EntryPage } from './pages/EntryPage';
 import { MyEntry } from './pages/MyEntry';
 import { About } from './pages/About';
+import { FieldDiary } from './pages/FieldDiary';
 import { NotFound } from './pages/NotFound';
 
 createRoot(document.getElementById('root')!).render(
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
           <Route index element={<Home />} />
           <Route path="entradas" element={<Diary />} />
           <Route path="entradas/:id" element={<EntryPage />} />
+          <Route path="diario" element={<FieldDiary />} />
           <Route path="mi-entrada" element={<MyEntry />} />
           <Route path="sobre-el-proyecto" element={<About />} />
           <Route path="*" element={<NotFound />} />

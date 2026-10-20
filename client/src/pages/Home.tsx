@@ -92,7 +92,7 @@ export function Home() {
             Páginas recientes <Heart size={26} className="ink-lavender" />
           </h2>
           <Link to="/entradas" className="link-hand">
-            ver el diario completo →
+            ver todas las entradas →
           </Link>
         </div>
 

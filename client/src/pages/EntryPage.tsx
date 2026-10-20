@@ -43,20 +43,20 @@ export function EntryPage() {
     return (
       <div className="narrow">
         <ErrorNote
-          title={error.notFound ? 'Esta página no está en el diario' : 'No pudimos abrir esta página'}
+          title={error.notFound ? 'Esta entrada no existe' : 'No pudimos abrir esta página'}
           onRetry={error.notFound ? undefined : () => setReloadToken((n) => n + 1)}
         >
           {error.message}
         </ErrorNote>
         <p>
           <Link to="/entradas" className="link-hand">
-            ← volver al diario
+            ← volver a las entradas
           </Link>
         </p>
       </div>
     );
   }
-  if (!entry) return <Loading label="Abriendo el diario…" />;
+  if (!entry) return <Loading label="Abriendo la entrada…" />;
 
   const isMine = loadMyEntry()?.id === entry.id;
   const edited = entry.updatedAt !== entry.createdAt;
@@ -65,7 +65,7 @@ export function EntryPage() {
     <article className="entry" aria-labelledby="entry-name">
       <nav className="entry__back" aria-label="Volver">
         <Link to="/entradas" className="link-hand">
-          ← volver al diario
+          ← volver a las entradas
         </Link>
         {isMine && (
           <Link to="/mi-entrada" className="btn btn--small">

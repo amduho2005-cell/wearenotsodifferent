@@ -8,7 +8,7 @@ import { Flower, Squiggle } from '../components/Doodles';
 import { searchTerms } from '../text';
 
 export function Diary() {
-  useDocumentTitle('Diario');
+  useDocumentTitle('Entradas');
   const [params, setParams] = useSearchParams();
   const q = params.get('q') ?? '';
   const sort = params.get('sort') === 'asc' ? 'asc' : 'desc';
@@ -63,7 +63,7 @@ export function Diary() {
     <div className="diary">
       <header className="page-head">
         <p className="hand page-head__kicker">todas las páginas</p>
-        <h1 className="page-title">El diario</h1>
+        <h1 className="page-title">Las entradas</h1>
         <Squiggle className="ink-lavender" size={160} />
         <p className="page-head__intro">
           Cada tarjeta es la página de una persona. Busca cualquier palabra: un interés, un nombre, unos pronombres, algo que
@@ -85,8 +85,8 @@ export function Diary() {
       <p className="diary__count" role="status" aria-live="polite">
         {result && !loading
           ? q
-            ? `${result.total} ${result.total === 1 ? 'página encontrada' : 'páginas encontradas'} para «${q}»`
-            : `${result.total} ${result.total === 1 ? 'página' : 'páginas'} en el diario`
+            ? `${result.total} ${result.total === 1 ? 'entrada encontrada' : 'entradas encontradas'} para «${q}»`
+            : `${result.total} ${result.total === 1 ? 'entrada' : 'entradas'} en total`
           : ''}
       </p>
 
@@ -112,7 +112,7 @@ export function Diary() {
             </>
           ) : (
             <>
-              <p className="hand">El diario todavía está en blanco.</p>
+              <p className="hand">Todavía no hay ninguna entrada.</p>
               <Link to="/mi-entrada" className="btn">
                 Escribir la primera página
               </Link>

@@ -14,7 +14,7 @@ export function NotFound() {
           Ir al inicio
         </Link>
         <Link to="/entradas" className="btn">
-          Leer el diario
+          Ver las entradas
         </Link>
       </div>
     </div>

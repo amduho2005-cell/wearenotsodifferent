@@ -99,7 +99,7 @@ export function About() {
       <div className="about__cta">
         <Star size={30} className="ink-lavender" />
         <Link to="/entradas" className="btn btn--ghost">
-          Leer el diario
+          Leer las entradas
         </Link>
         <Link to="/mi-entrada" className="btn">
           Escribir mi página

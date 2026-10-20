@@ -4,7 +4,8 @@ import { Heart, Sparkle } from './Doodles';
 
 const NAV = [
   { to: '/', label: 'Inicio', end: true },
-  { to: '/entradas', label: 'Diario', end: false },
+  { to: '/entradas', label: 'Entradas', end: false },
+  { to: '/diario', label: 'Diario', end: false },
   { to: '/mi-entrada', label: 'Mi entrada', end: false },
   { to: '/sobre-el-proyecto', label: 'Sobre el proyecto', end: false },
 ];

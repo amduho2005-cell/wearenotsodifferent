@@ -8,7 +8,7 @@ interface Props {
   autoFocus?: boolean;
 }
 
-export function SearchBar({ value, onChange, onSubmit, label = 'Buscar en el diario', autoFocus }: Props) {
+export function SearchBar({ value, onChange, onSubmit, label = 'Buscar en las entradas', autoFocus }: Props) {
   const id = useId();
 
   const submit = (e: FormEvent) => {

@@ -1,0 +1,553 @@
+/* ==========================================================================
+   Diario de campo creativo (/diario)
+   Usa los tokens y materiales (papel, cinta, notas, polaroids) de global.css.
+   ========================================================================== */
+
+.fd {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.fd-index {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.fd-index__link {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--charcoal);
+  text-decoration: none;
+  background: var(--paper);
+  border: 2px dashed var(--beige-dark);
+  border-radius: var(--radius-sketch);
+  padding: 0.3rem 0.8rem;
+}
+
+.fd-index__link:hover {
+  border-style: solid;
+  border-color: var(--lavender-ink);
+  color: var(--charcoal);
+}
+
+.fd-section {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  scroll-margin-top: 1.5rem;
+}
+
+.fd-section__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+  margin-bottom: 1.25rem;
+}
+
+.fd-section__head .section__title {
+  margin: 0;
+}
+
+.fd-section__num {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  font-size: 1.8rem;
+  background: var(--lavender);
+  border: 2px solid var(--charcoal);
+  border-radius: 50%;
+  transform: rotate(-6deg);
+}
+
+.fd-weight {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: 0 0.6rem 0.1rem;
+  border-radius: 3px;
+  transform: rotate(3deg);
+}
+
+.fd-grid {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: start;
+}
+
+.fd-grid--question {
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+
+.fd-grid--entry {
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr);
+}
+
+.fd-grid--two {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.fd-text {
+  font-size: 1.06rem;
+}
+
+.fd-text p:last-child {
+  margin-bottom: 0;
+}
+
+.fd-question__text {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: clamp(1.45rem, 2.6vw, 1.8rem);
+  line-height: 1.3;
+  color: var(--charcoal);
+  margin: 0.2rem 0 1.25rem;
+}
+
+.fd-objectives {
+  margin: 0.3rem 0 0;
+  padding-left: 1.3rem;
+}
+
+.fd-objectives li {
+  margin-bottom: 0.45rem;
+}
+
+.fd-ficha dl {
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.fd-ficha dt {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--sage-ink);
+  line-height: 1.1;
+}
+
+.fd-ficha dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.fd-position .sticker {
+  margin-bottom: 1.1rem;
+}
+
+.fd-entry__title {
+  font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+  color: var(--lavender-ink);
+  margin: -0.4rem 0 1.25rem;
+}
+
+.fd-block-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  color: var(--charcoal);
+  margin: 0 0 0.6rem;
+}
+
+.fd-block-label span {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 1.2rem;
+  border: 2px solid var(--charcoal);
+  border-radius: 50%;
+  background: var(--cream);
+}
+
+.fd-block-label--center {
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+/* Bloque 1: entrada tipo ticket, con muescas laterales */
+.fd-ticket {
+  position: relative;
+  background: var(--bluegray-soft);
+  padding: 1.1rem 1.4rem 1.2rem;
+  border-radius: 6px;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(-1.5deg);
+  border-top: 3px dashed rgba(42, 40, 38, 0.25);
+  -webkit-mask:
+    radial-gradient(circle at 0 50%, transparent 11px, #000 11.5px) left / 51% 100% no-repeat,
+    radial-gradient(circle at 100% 50%, transparent 11px, #000 11.5px) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle at 0 50%, transparent 11px, #000 11.5px) left / 51% 100% no-repeat,
+    radial-gradient(circle at 100% 50%, transparent 11px, #000 11.5px) right / 51% 100% no-repeat;
+}
+
+.fd-ticket p {
+  margin: 0 0 0.4rem;
+}
+
+.fd-ticket__big {
+  font-size: 2rem;
+  line-height: 1.05;
+  color: var(--charcoal);
+}
+
+/* Línea de tiempo de la noche */
+.fd-timeline {
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+  padding: 1.25rem clamp(1rem, 3vw, 2rem) 1.4rem;
+}
+
+.fd-timeline figcaption {
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  margin-bottom: 0.75rem;
+}
+
+.fd-timeline__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  position: relative;
+}
+
+.fd-timeline__list::before {
+  content: '';
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  top: 1.05rem;
+  border-top: 3px dotted var(--bluegray);
+}
+
+.fd-timeline__list li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.fd-timeline__dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--sage);
+  border: 2px solid var(--charcoal);
+  position: relative;
+  z-index: 1;
+}
+
+.fd-timeline__list li.is-me .fd-timeline__dot {
+  background: var(--lavender);
+  transform: scale(1.35);
+}
+
+.fd-timeline__time {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.fd-timeline__name {
+  font-size: 1.2rem;
+  line-height: 1.05;
+  color: var(--charcoal);
+  overflow-wrap: anywhere;
+}
+
+.fd-timeline__note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.25rem;
+  color: var(--lavender-ink);
+  margin: 0.9rem 0 0;
+}
+
+/* Collage */
+.fd-collage-wrap {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.fd-collage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  grid-auto-flow: dense;
+  gap: 1.6rem 1.3rem;
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  background-color: var(--beige);
+  background-image:
+    radial-gradient(rgba(42, 40, 38, 0.08) 1px, transparent 1.5px),
+    radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.5), transparent 50%);
+  background-size: 14px 14px, 100% 100%;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(42, 40, 38, 0.08), var(--shadow-paper);
+}
+
+.fd-quote {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.fd-quote p {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  color: var(--charcoal);
+  margin: 0 0 0.4rem;
+}
+
+.fd-quote cite {
+  font-style: normal;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.fd-photo {
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.2s;
+}
+
+.fd-photo:hover {
+  transform: rotate(0deg) scale(1.03);
+  z-index: 2;
+}
+
+.fd-photo .polaroid-caption a {
+  color: var(--charcoal);
+  text-decoration: none;
+}
+
+.fd-photo .polaroid-caption a:hover {
+  text-decoration: underline wavy var(--lavender-ink);
+}
+
+.fd-collage__status {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Recorte con los intereses como pegatinas */
+.fd-stickers {
+  grid-column: span 2;
+  background: var(--paper);
+  padding: 1.1rem 1.1rem 1.3rem;
+  box-shadow: var(--shadow-paper);
+  transform: rotate(-0.8deg);
+  clip-path: polygon(0 3%, 6% 0, 14% 2%, 24% 0, 38% 3%, 52% 0, 66% 2%, 80% 0, 92% 3%, 100% 0, 100% 97%, 92% 100%, 78% 98%, 62% 100%, 48% 97%, 34% 100%, 20% 98%, 8% 100%, 0 97%);
+}
+
+.fd-stickers__title {
+  font-size: 1.45rem;
+  margin: 0 0 0.5rem;
+  color: var(--charcoal);
+}
+
+.fd-stickers ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.fd-stickers li {
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.2rem 0.6rem;
+  border: 2px solid var(--charcoal);
+  border-radius: 999px;
+  background: var(--lavender-soft);
+  transform: rotate(var(--tilt, 0deg));
+}
+
+.fd-stickers li:nth-child(3n + 2) {
+  background: var(--sage-soft);
+}
+
+.fd-stickers li:nth-child(3n) {
+  background: var(--bluegray-soft);
+}
+
+.fd-doodle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.fd-doodle--a { top: -14px; left: 22%; transform: rotate(-12deg); }
+.fd-doodle--b { bottom: -16px; right: 8%; }
+.fd-doodle--c { top: 12px; right: 14px; }
+.fd-doodle--d { bottom: -14px; left: 6%; }
+
+.fd-cat-mini {
+  margin: 0 0 1rem;
+  padding-left: 1.3rem;
+}
+
+.fd-cat-mini li {
+  margin-bottom: 0.4rem;
+}
+
+.fd-muted {
+  color: var(--muted);
+}
+
+.fd-pending .checklist li {
+  margin-bottom: 0.45rem;
+}
+
+/* Categorías */
+.fd-categories {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.fd-category {
+  transform: rotate(var(--tilt, 0deg));
+  font-size: 1rem;
+}
+
+.fd-category__num {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.9rem;
+  font-size: 2.6rem;
+  color: var(--lavender);
+  margin: 0;
+  line-height: 1;
+}
+
+.fd-category__title {
+  font-size: 1.7rem;
+  line-height: 1.1;
+  color: var(--charcoal);
+  margin: 0.3rem 2rem 0.4rem 0;
+}
+
+.fd-category__freq {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.88rem;
+  background: var(--sage-soft);
+  border-left: 4px solid var(--sage);
+  padding: 0.15rem 0.55rem;
+  margin-bottom: 0.9rem;
+}
+
+.fd-category__who {
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-top: 1px dashed var(--beige-dark);
+  padding-top: 0.6rem;
+  margin: 0.8rem 0 0;
+}
+
+.fd-category__who .label-hand {
+  font-size: 1.1rem;
+}
+
+.fd-frequent ul {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.fd-frequent li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed rgba(42, 40, 38, 0.2);
+}
+
+.fd-frequent li:last-child {
+  border-bottom: 0;
+}
+
+.fd-frequent__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  color: var(--lavender-ink);
+}
+
+.fd-tally {
+  display: inline-flex;
+  gap: 0.15rem;
+}
+
+.fd-conclusion .label-hand {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.fd-ethics {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  max-width: 760px;
+  margin: 2.5rem auto 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+  background: var(--lavender-soft);
+  padding: 0.8rem 1.1rem;
+  border-radius: 6px;
+}
+
+@media (max-width: 900px) {
+  .fd-grid--question,
+  .fd-grid--entry,
+  .fd-grid--two,
+  .fd-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-category {
+    transform: none;
+  }
+
+  .fd-timeline__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 1.2rem;
+  }
+
+  .fd-timeline__list::before {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .fd-stickers {
+    grid-column: auto;
+  }
+
+  .fd-ticket {
+    transform: none;
+  }
+}
