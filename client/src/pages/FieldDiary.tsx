@@ -5,7 +5,7 @@ import type { Entry } from '../types';
 import { FramedPhoto } from '../components/FramedPhoto';
 import { useDocumentTitle } from '../components/Status';
 import '../styles/field-diary.css';
-import { Arrow, Flower, Heart, Sparkle, Spiral, Squiggle, Star } from '../components/Doodles';
+import { Flower, Heart, Sparkle, Spiral, Squiggle, Star } from '../components/Doodles';
 import { tiltFor } from '../text';
 import {
   AUTORA,
@@ -214,7 +214,7 @@ export function FieldDiary() {
             ))}
           </ol>
           <p className="fd-timeline__note hand">
-            siete páginas en diecisiete minutos <Arrow size={46} className="ink-lavender" />
+            siete páginas en diecisiete minutos
           </p>
         </figure>
 
