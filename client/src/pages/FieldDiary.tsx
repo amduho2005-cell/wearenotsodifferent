@@ -248,7 +248,7 @@ export function FieldDiary() {
                 style={{ ['--tilt' as string]: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg`, order: i * 2 + 1 }}
               >
                 <p>«{c.texto}»</p>
-                <cite className="hand">— {c.autor}</cite>
+                <cite className="hand">{c.autor}</cite>
               </blockquote>
             ))}
 

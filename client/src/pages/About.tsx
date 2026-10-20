@@ -42,7 +42,7 @@ export function About() {
           <h2 className="section__title">Crear empatía</h2>
           <p>
             Cuando lees la página de alguien que se emociona con los insectos o con los dados de veinte caras, es fácil
-            descubrir que lo que sentía —ilusión, vergüenza, alivio— se parece mucho a lo que has sentido tú. De ahí el
+            descubrir que lo que sentía se parece mucho a lo que has sentido tú; la ilusión, la vergüenza y el alivio son los mismos. De ahí el
             nombre: <em>we are not so different</em>.
           </p>
         </section>
