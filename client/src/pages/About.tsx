@@ -90,9 +90,9 @@ export function About() {
           <Spiral size={28} className="ink-bluegray" /> Una nota técnica
         </h2>
         <p>
-          Esta es una versión en desarrollo. Las páginas se guardan en una base de datos MongoDB y tu entrada se reconoce mediante un <strong>código de edición</strong> que recibes al crearla, sin
-          cuentas ni contraseñas. Las entradas marcadas como «ejemplo ficticio» son personas inventadas para mostrar cómo
-          funciona el diario.
+          Las páginas se guardan en una base de datos MongoDB y las fotografías en un almacenamiento de archivos aparte.
+          Tu entrada se reconoce mediante un <strong>código de edición</strong> que recibes al crearla, sin cuentas ni
+          contraseñas. Todas las entradas del diario son de personas reales que eligieron compartir su historia.
         </p>
       </section>
 

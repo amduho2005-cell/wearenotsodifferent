@@ -185,4 +185,4 @@ export const PROCESO = [
 ];
 
 export const NOTA_ETICA =
-  'Todas las entradas citadas son públicas en el sitio y aparecen con el seudónimo que cada persona eligió. No incluyo ningún dato personal adicional. Las entradas de ejemplo del sitio eran ficticias y no forman parte de este análisis.';
+  'Todas las entradas citadas son públicas en el sitio y aparecen con el seudónimo que cada persona eligió. No incluyo ningún dato personal adicional.';

@@ -56,7 +56,7 @@ export function Layout() {
             <Heart size={22} className="ink-lavender" /> Nadie está solo en lo que le gusta.
           </p>
           <p className="site-footer__small">
-            Un diario colectivo sin likes, sin seguidores y sin rankings. Versión local de desarrollo.
+            Un diario colectivo sin likes, sin seguidores y sin rankings.
           </p>
           <Sparkle size={18} className="ink-sage" />
         </div>
