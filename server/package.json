@@ -1,0 +1,30 @@
+{
+  "name": "we-are-not-so-different-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "API (Express + MongoDB) del diario colectivo we are not so different",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env src/index.ts",
+    "build": "tsc",
+    "start": "node --env-file-if-exists=.env dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx --env-file-if-exists=.env src/seed.ts"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.2",
+    "express": "^5.3.0",
+    "mongodb": "^6.21.0",
+    "multer": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.3.0",
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

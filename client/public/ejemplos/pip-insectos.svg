@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+<rect width="400" height="500" fill="#f7f1e3"/>
+<rect x="30" y="30" width="340" height="440" fill="none" stroke="#cdb894" stroke-width="4" stroke-dasharray="10 8"/>
+<g transform="translate(200 250)">
+<path d="M0-100v-30M-10-128q-20-25-35-20M10-128q20-25 35-20" stroke="#2a2826" stroke-width="4" fill="none"/>
+<path d="M-60-40h-50M-60 10h-60M-55 55l-45 25M60-40h50M60 10h60M55 55l45 25" stroke="#2a2826" stroke-width="5"/>
+<circle cx="0" cy="-90" r="28" fill="#2a2826"/>
+<ellipse cx="0" cy="20" rx="75" ry="105" fill="#9bb08a" stroke="#2a2826" stroke-width="6"/>
+<path d="M0-80v205" stroke="#2a2826" stroke-width="5"/>
+<circle cx="-35" cy="-10" r="13" fill="#2a2826"/><circle cx="35" cy="-10" r="13" fill="#2a2826"/><circle cx="-38" cy="55" r="11" fill="#2a2826"/><circle cx="38" cy="55" r="11" fill="#2a2826"/>
+</g>
+<text x="120" y="450" font-family="Caveat, cursive" font-size="32" fill="#6f8197">Coccinellidae</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+<rect width="400" height="500" fill="#e4dcf3"/>
+<circle cx="320" cy="90" r="46" fill="#f7f1e3"/><circle cx="340" cy="78" r="40" fill="#e4dcf3"/>
+<g transform="rotate(-8 200 280)">
+<rect x="95" y="170" width="210" height="250" rx="6" fill="#2a2826"/>
+<rect x="105" y="180" width="190" height="230" rx="4" fill="#fbf7ee"/>
+<path d="M105 260h190M200 180v80M105 340h190" stroke="#2a2826" stroke-width="5"/>
+<circle cx="150" cy="215" r="18" fill="none" stroke="#2a2826" stroke-width="4"/><path d="M140 212l6 4M158 212l-6 4M145 225q5 4 10 0" stroke="#2a2826" stroke-width="3" fill="none"/>
+<path d="M225 205l15 30 15-30 15 30" stroke="#6f8197" stroke-width="4" fill="none"/>
+<text x="135" y="310" font-family="Caveat, cursive" font-size="34" fill="#2a2826">¡Waa!</text>
+<path d="M120 370q40-25 80 0t80 0" stroke="#9bb08a" stroke-width="6" fill="none"/>
+</g>
+<path d="M60 70l8 18 18 8-18 8-8 18-8-18-18-8 18-8z" fill="#b8a9d9"/>
+<path d="M70 440l5 10 10 5-10 5-5 10-5-10-10-5 10-5z" fill="#6f8197"/>
+</svg>

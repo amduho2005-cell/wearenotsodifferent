@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+<rect width="400" height="500" fill="#dfe8d6"/>
+<path d="M0 420q100-40 200 0t200 0v80H0z" fill="#9bb08a" opacity=".55"/>
+<g transform="rotate(10 200 240)">
+<polygon points="200,110 310,175 310,305 200,370 90,305 90,175" fill="#b8a9d9" stroke="#2a2826" stroke-width="6" stroke-linejoin="round"/>
+<polygon points="200,170 260,275 140,275" fill="#e4dcf3" stroke="#2a2826" stroke-width="5" stroke-linejoin="round"/>
+<path d="M200 110v60M310 175l-50 100M90 175l50 100M200 370l-60-95M200 370l60-95M90 305l50-30M310 305l-50-30" stroke="#2a2826" stroke-width="4"/>
+<text x="178" y="252" font-family="Georgia, serif" font-weight="bold" font-size="40" fill="#2a2826">20</text>
+</g>
+<path d="M55 90q20-30 40 0t40 0" stroke="#6f8197" stroke-width="5" fill="none"/>
+<text x="250" y="460" font-family="Caveat, cursive" font-size="36" fill="#2a2826">¡crítico!</text>
+</svg>

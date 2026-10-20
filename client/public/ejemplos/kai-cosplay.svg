@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+<rect width="400" height="500" fill="#d5dde6"/>
+<path d="M0 0h400v120Q200 170 0 120z" fill="#b8a9d9" opacity=".5"/>
+<g transform="rotate(-30 200 260)">
+<rect x="188" y="60" width="24" height="300" rx="4" fill="#fbf7ee" stroke="#2a2826" stroke-width="5"/>
+<path d="M200 70v280" stroke="#d5dde6" stroke-width="4"/>
+<rect x="150" y="355" width="100" height="20" rx="6" fill="#9bb08a" stroke="#2a2826" stroke-width="5"/>
+<rect x="190" y="375" width="20" height="70" rx="4" fill="#2a2826"/>
+<path d="M190 390h20M190 405h20M190 420h20" stroke="#e7d9bf" stroke-width="3"/>
+</g>
+<g stroke="#2a2826" stroke-width="3" fill="none"><path d="M60 380q-20 30 10 50"/><path d="M80 360l10 10M330 110l14-6M340 140l16 2"/></g>
+<text x="50" y="80" font-family="Caveat, cursive" font-size="36" fill="#2a2826">hecho a mano</text>
+</svg>

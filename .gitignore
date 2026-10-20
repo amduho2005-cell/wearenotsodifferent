@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tmp
+# Fotos subidas en local
+server/uploads/*
+!server/uploads/.gitkeep
+# Variables de entorno (contienen la contraseña de MongoDB)
+.env
+.env*.local
+.vercel

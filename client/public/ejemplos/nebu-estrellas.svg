@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500">
+<rect width="400" height="500" fill="#3d4757"/>
+<g fill="#f7f1e3"><circle cx="60" cy="60" r="3"/><circle cx="140" cy="110" r="2"/><circle cx="330" cy="70" r="3"/><circle cx="280" cy="150" r="2"/><circle cx="90" cy="200" r="2"/><circle cx="350" cy="240" r="3"/><circle cx="40" cy="330" r="2"/><circle cx="230" cy="60" r="2"/></g>
+<path d="M60 60L140 110 230 60 280 150 330 70" stroke="#b8a9d9" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+<circle cx="200" cy="300" r="90" fill="#9bb08a"/>
+<path d="M130 270q70 30 140-10M125 320q80 20 150-5" stroke="#dfe8d6" stroke-width="10" fill="none" opacity=".7"/>
+<ellipse cx="200" cy="300" rx="160" ry="34" fill="none" stroke="#e4dcf3" stroke-width="8" transform="rotate(-15 200 300)"/>
+<path d="M330 400l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill="#e7d9bf"/>
+<text x="40" y="460" font-family="Caveat, cursive" font-size="34" fill="#f7f1e3">mira hacia arriba</text>
+</svg>
